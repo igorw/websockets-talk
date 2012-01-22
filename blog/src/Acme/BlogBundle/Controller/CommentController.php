@@ -41,10 +41,23 @@ class CommentController extends Controller
             $em->persist($comment);
             $em->flush();
 
+            $this->publishCommentCreate($comment);
+
             return new Response('{}', 201, array('Content-Type' => 'application/json'));
             
         }
 
         return new Response('{}', 400, array('Content-Type' => 'application/json'));
+    }
+
+    private function publishCommentCreate(Comment $comment)
+    {
+        $context = new \ZMQContext();
+
+        $sock = $context->getSocket(\ZMQ::SOCKET_PUB);
+        $sock->connect('tcp://127.0.0.1:5555');
+
+        $msg = json_encode(array('type' => 'comment.create', 'data' => $comment->toArray()));
+        $sock->send($msg);
     }
 }

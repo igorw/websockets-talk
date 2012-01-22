@@ -75,4 +75,12 @@ class Comment
     {
         return $this->body;
     }
+
+    public function toArray()
+    {
+        return array(
+            'id'    => $this->id,
+            'body'  => $this->body,
+        );
+    }
 }

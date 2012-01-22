@@ -1,56 +1,76 @@
-<h1>Post</h1>
+{% extends "AcmeBlogBundle::layout.html.twig" %}
 
-<table class="record_properties">
-    <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ entity.id }}</td>
-        </tr>
-        <tr>
-            <th>Title</th>
-            <td>{{ entity.title }}</td>
-        </tr>
-        <tr>
-            <th>Body</th>
-            <td>{{ entity.body }}</td>
-        </tr>
-    </tbody>
-</table>
+{% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="http://localhost:81/socket.io/socket.io.js"></script>
+    <script src="{{ asset('bundles/acmeblog/js/show.js') }}"></script>
+{% endblock %}
 
-{% if entity.comments|length %}
-    <h2>Comments</h2>
+{% block content %}
+    <div class="page-header">
+        <h1>Acme Blog <small>Supporting the derps of tomorrow</small></h1>
+    </div>
 
-    <ul>
-    {% for comment in entity.comments %}
-        <li>{{ comment.body }}</li>
-    {% endfor %}
-    </ul>
-{% endif %}
+    <div class="row">
+        <div class="span5">&nbsp;</div>
+        <div class="span6">
+            <h2>{{ entity.title }}</h2>
+            <p>{{ entity.body }}</p>
+        </div>
+        <div class="span5">&nbsp;</div>
+    </div>
 
-<h2>Add comment</h2>
+    <div class="row">
+        <div class="span5">&nbsp;</div>
+        <div class="span6">
+            <form action="{{ path('blog_delete', { 'id': entity.id }) }}" method="post" class="pull-right" style="display: inline-block; margin-left: 10px;">
+                {{ form_widget(delete_form) }}
+                <input type="submit" value="Delete" class="btn danger" />
+            </form>
+            <a href="{{ path('blog_edit', { 'id': entity.id }) }}" class="btn primary pull-right">Edit</a>
+        </div>
+        <div class="span5">&nbsp;</div>
+    </div>
 
-<form action="{{ path('blog_comment_create', { 'id': entity.id }) }}" method="post" {{ form_enctype(comment_form) }}>
-    {{ form_widget(comment_form) }}
-    <p>
-        <button type="submit">Comment</button>
-    </p>
-</form>
+    <hr />
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('blog') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('blog_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>
-        <form action="{{ path('blog_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-        </form>
-    </li>
-</ul>
+    <div class="row">
+        <div class="span5">&nbsp;</div>
+        <div class="span6">
+            <h2>Comments</h2>
+
+            <div class="comments">
+            {% if entity.comments|length %}
+                {% for comment in entity.comments %}
+                    <p>{{ comment.body }}</p>
+                {% endfor %}
+            {% endif %}
+            </div>
+        </div>
+        <div class="span5">&nbsp;</div>
+    </div>
+
+    <div class="row">
+        <div class="span5">&nbsp;</div>
+        <div class="span6">
+            <form action="{{ path('blog_comment_create', { 'id': entity.id }) }}" method="post" {{ form_enctype(comment_form) }} class="new_comment">
+                <div class="pull-right">
+                    <input type="submit" value="Comment" class="btn primary" />
+                </div>
+                {{ form_widget(comment_form.body) }}
+                {{ form_rest(comment_form) }}
+            </form>
+        </div>
+        <div class="span5">&nbsp;</div>
+    </div>
+
+    <div class="row">
+        <div class="span5">&nbsp;</div>
+        <div class="span6">
+            <div class="well">
+                <a href="{{ path('blog') }}" class="btn">Back</a>
+            </div>
+        </div>
+        <div class="span5">&nbsp;</div>
+    </div>
+{% endblock %}

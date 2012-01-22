@@ -1,39 +1,30 @@
-<h1>Post list</h1>
+{% extends "AcmeBlogBundle::layout.html.twig" %}
 
-<table class="records_list">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Title</th>
-            <th>Body</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
+{% block content %}
+    <div class="page-header">
+        <h1>Acme Blog <small>Supporting the derps of tomorrow</small></h1>
+    </div>
+
     {% for entity in entities %}
-        <tr>
-            <td><a href="{{ path('blog_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{{ entity.title }}</td>
-            <td>{{ entity.body }}</td>
-            <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('blog_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('blog_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-            </td>
-        </tr>
+        <div class="row">
+            <div class="span5">&nbsp;</div>
+            <div class="span6">
+                <h2><a href="{{ path('blog_show', { 'id': entity.id }) }}">{{ entity.title }}</a></h2>
+            </div>
+            <div class="span5">&nbsp;</div>
+        </div>
     {% endfor %}
-    </tbody>
-</table>
 
-<ul>
-    <li>
-        <a href="{{ path('blog_new') }}">
-            Create a new entry
-        </a>
-    </li>
-</ul>
+    <div class="row">
+    <hr />
+        <div class="span5">&nbsp;</div>
+        <div class="span6">
+            <ul class="unstyled pull-right">
+                <li>
+                    <a href="{{ path('blog_new') }}" class="btn">Create a new entry</a>
+                </li>
+            </ul>
+        </div>
+        <div class="span5">&nbsp;</div>
+    </div>
+{% endblock %}

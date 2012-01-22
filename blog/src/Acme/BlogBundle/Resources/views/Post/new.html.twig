@@ -1,16 +1,40 @@
-<h1>Post creation</h1>
+{% extends "AcmeBlogBundle::layout.html.twig" %}
 
-<form action="{{ path('blog_create') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-    <p>
-        <button type="submit">Create</button>
-    </p>
-</form>
+{% block content %}
+    <div class="page-header">
+        <h1>Acme Blog <small>Supporting the derps of tomorrow</small></h1>
+    </div>
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('blog') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+    <div class="row">
+        <div class="span5">&nbsp;</div>
+        <div class="span6">
+            <h2>New post</h2>
+
+            <form action="{{ path('blog_create') }}" method="post" {{ form_enctype(form) }} class="form-stacked">
+                <div class="clearfix">
+                    {{ form_label(form.title) }}
+                    {{ form_widget(form.title) }}
+                </div>
+                <div class="clearfix">
+                    {{ form_label(form.body) }}
+                    {{ form_widget(form.body) }}
+                </div>
+                {{ form_rest(form) }}
+                <div class="clearfix">
+                <input type="submit" class="btn primary pull-right" value="Create" />
+                </div>
+            </form>
+        </div>
+        <div class="span5">&nbsp;</div>
+    </div>
+
+    <div class="row">
+        <div class="span5">&nbsp;</div>
+        <div class="span6">
+            <div class="well">
+                <a href="{{ path('blog') }}" class="btn">Back</a>
+            </div>
+        </div>
+        <div class="span5">&nbsp;</div>
+    </div>
+{% endblock %}

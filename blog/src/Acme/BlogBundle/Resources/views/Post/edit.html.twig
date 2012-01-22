@@ -1,22 +1,44 @@
-<h1>Post edit</h1>
+{% extends "AcmeBlogBundle::layout.html.twig" %}
 
-<form action="{{ path('blog_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-    {{ form_widget(edit_form) }}
-    <p>
-        <button type="submit">Edit</button>
-    </p>
-</form>
+{% block content %}
+    <div class="page-header">
+        <h1>Acme Blog <small>Supporting the derps of tomorrow</small></h1>
+    </div>
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('blog') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <form action="{{ path('blog_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-        </form>
-    </li>
-</ul>
+    <div class="row">
+        <div class="span5">&nbsp;</div>
+        <div class="span6">
+            <h2>Post edit</h2>
+
+            <form action="{{ path('blog_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} class="form-stacked">
+                <div class="clearfix">
+                    {{ form_label(edit_form.title) }}
+                    {{ form_widget(edit_form.title) }}
+                </div>
+                <div class="clearfix">
+                    {{ form_label(edit_form.body) }}
+                    {{ form_widget(edit_form.body) }}
+                </div>
+                {{ form_rest(edit_form) }}
+                <div class="clearfix">
+                <input type="submit" class="btn primary pull-right" value="Edit" />
+                </div>
+            </form>
+        </div>
+        <div class="span5">&nbsp;</div>
+    </div>
+
+    <div class="row">
+        <div class="span5">&nbsp;</div>
+        <div class="span6">
+            <div class="well">
+                <a href="{{ path('blog_show', {id: entity.id}) }}" class="btn">Back</a>
+                <form action="{{ path('blog_delete', { 'id': entity.id }) }}" method="post" class="pull-right" style="display: inline-block;">
+                    {{ form_widget(delete_form) }}
+                    <input type="submit" class="btn danger" value="Delete" />
+                </form>
+            </div>
+        </div>
+        <div class="span5">&nbsp;</div>
+    </div>
+{% endblock %}
