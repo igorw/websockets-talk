@@ -11,6 +11,12 @@
                 <h2><a href="{{ path('blog_show', { 'id': entity.id }) }}">{{ entity.title }}</a></h2>
             </div>
         </div>
+    {% else %}
+        <div class="row">
+            <div class="offset5 span6">
+                <h2>Le Blog is empty.</h2>
+            </div>
+        </div>
     {% endfor %}
 
     <hr />
