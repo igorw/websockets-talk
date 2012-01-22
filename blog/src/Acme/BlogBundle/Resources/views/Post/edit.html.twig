@@ -6,31 +6,28 @@
     </div>
 
     <div class="row">
-        <div class="span5">&nbsp;</div>
-        <div class="span6">
+        <div class="offset5 span6">
             <h2>Post edit</h2>
 
             <form action="{{ path('blog_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} class="form-stacked">
                 <div class="clearfix">
                     {{ form_label(edit_form.title) }}
-                    {{ form_widget(edit_form.title) }}
+                    {{ form_widget(edit_form.title, {attr: {class: 'xlarge'}}) }}
                 </div>
                 <div class="clearfix">
                     {{ form_label(edit_form.body) }}
-                    {{ form_widget(edit_form.body) }}
+                    {{ form_widget(edit_form.body, {attr: {class: 'xlarge'}}) }}
                 </div>
                 {{ form_rest(edit_form) }}
                 <div class="clearfix">
-                    <input type="submit" class="btn primary pull-right" value="Edit" />
+                    <input type="submit" class="btn primary pull-right" value="Edit" style="margin-right: 40px;" />
                 </div>
             </form>
         </div>
-        <div class="span5">&nbsp;</div>
     </div>
 
     <div class="row">
-        <div class="span5">&nbsp;</div>
-        <div class="span6">
+        <div class="offset5 span6">
             <div class="well">
                 <a href="{{ path('blog_show', {id: entity.id}) }}" class="btn">Back</a>
                 <form action="{{ path('blog_delete', { 'id': entity.id }) }}" method="post" class="pull-right" style="display: inline-block;">
@@ -39,6 +36,5 @@
                 </form>
             </div>
         </div>
-        <div class="span5">&nbsp;</div>
     </div>
 {% endblock %}

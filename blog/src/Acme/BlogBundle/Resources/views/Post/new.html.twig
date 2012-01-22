@@ -6,35 +6,31 @@
     </div>
 
     <div class="row">
-        <div class="span5">&nbsp;</div>
-        <div class="span6">
+        <div class="offset5 span6">
             <h2>New post</h2>
 
             <form action="{{ path('blog_create') }}" method="post" {{ form_enctype(form) }} class="form-stacked">
                 <div class="clearfix">
                     {{ form_label(form.title) }}
-                    {{ form_widget(form.title) }}
+                    {{ form_widget(form.title, {attr: {class: 'xlarge'}}) }}
                 </div>
                 <div class="clearfix">
                     {{ form_label(form.body) }}
-                    {{ form_widget(form.body) }}
+                    {{ form_widget(form.body, {attr: {class: 'xlarge'}}) }}
                 </div>
                 {{ form_rest(form) }}
                 <div class="clearfix">
-                    <input type="submit" class="btn primary pull-right" value="Create" />
+                    <input type="submit" class="btn primary pull-right" value="Create" style="margin-right: 40px;" />
                 </div>
             </form>
         </div>
-        <div class="span5">&nbsp;</div>
     </div>
 
     <div class="row">
-        <div class="span5">&nbsp;</div>
-        <div class="span6">
+        <div class="offset span6">
             <div class="well">
                 <a href="{{ path('blog') }}" class="btn">Back</a>
             </div>
         </div>
-        <div class="span5">&nbsp;</div>
     </div>
 {% endblock %}

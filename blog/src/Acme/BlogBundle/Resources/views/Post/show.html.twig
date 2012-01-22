@@ -12,31 +12,26 @@
     </div>
 
     <div class="row">
-        <div class="span5">&nbsp;</div>
-        <div class="span6">
+        <div class="offset5 span6">
             <h2>{{ entity.title }}</h2>
             <p>{{ entity.body }}</p>
         </div>
-        <div class="span5">&nbsp;</div>
     </div>
 
     <div class="row">
-        <div class="span5">&nbsp;</div>
-        <div class="span6">
+        <div class="offset5 span6">
             <form action="{{ path('blog_delete', { 'id': entity.id }) }}" method="post" class="pull-right" style="display: inline-block; margin-left: 10px;">
                 {{ form_widget(delete_form) }}
                 <input type="submit" value="Delete" class="btn danger" />
             </form>
             <a href="{{ path('blog_edit', { 'id': entity.id }) }}" class="btn pull-right">Edit</a>
         </div>
-        <div class="span5">&nbsp;</div>
     </div>
 
     <hr />
 
     <div class="row">
-        <div class="span5">&nbsp;</div>
-        <div class="span6">
+        <div class="offset5 span6">
             <h2>Comments</h2>
 
             <div class="comments">
@@ -47,12 +42,10 @@
             {% endif %}
             </div>
         </div>
-        <div class="span5">&nbsp;</div>
     </div>
 
     <div class="row">
-        <div class="span5">&nbsp;</div>
-        <div class="span6">
+        <div class="offset5 span6">
             <form action="{{ path('blog_comment_create', { 'id': entity.id }) }}" method="post" {{ form_enctype(comment_form) }} class="new_comment">
                 <div class="pull-right">
                     <input type="submit" value="Comment" class="btn primary" />
@@ -61,16 +54,13 @@
                 {{ form_rest(comment_form) }}
             </form>
         </div>
-        <div class="span5">&nbsp;</div>
     </div>
 
     <div class="row">
-        <div class="span5">&nbsp;</div>
-        <div class="span6">
+        <div class="offset5 span6">
             <div class="well">
                 <a href="{{ path('blog') }}" class="btn">Back</a>
             </div>
         </div>
-        <div class="span5">&nbsp;</div>
     </div>
 {% endblock %}
