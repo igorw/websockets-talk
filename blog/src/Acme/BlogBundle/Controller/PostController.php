@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Acme\BlogBundle\Entity\Post;
+use Acme\BlogBundle\Form\CommentType;
 use Acme\BlogBundle\Form\PostType;
 
 /**
@@ -49,9 +50,13 @@ class PostController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
+        $commentForm = $this->createForm(new CommentType());
+
         return array(
             'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        );
+            'delete_form' => $deleteForm->createView(),
+            'comment_form' => $commentForm->createView(),
+        );
     }
 
     /**

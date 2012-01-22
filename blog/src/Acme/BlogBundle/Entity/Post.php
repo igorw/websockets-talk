@@ -3,6 +3,7 @@
 namespace Acme\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Acme\BlogBundle\Entity\Post
@@ -25,6 +26,7 @@ class Post
      * @var string $title
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * @Assert\NotBlank
      */
     private $title;
 
@@ -32,9 +34,19 @@ class Post
      * @var text $body
      *
      * @ORM\Column(name="body", type="text")
+     * @Assert\NotBlank
      */
     private $body;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
+     */
+    private $comments;
+
+    public function __construct()
+    {
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -84,5 +96,15 @@ class Post
     public function getBody()
     {
         return $this->body;
+    }
+
+    public function addComment($comment)
+    {
+        $this->comments[] = $comment;
+    }
+
+    public function getComments()
+    {
+        return $this->comments;
     }
 }

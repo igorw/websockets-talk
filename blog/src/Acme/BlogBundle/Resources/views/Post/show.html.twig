@@ -17,6 +17,25 @@
     </tbody>
 </table>
 
+{% if entity.comments|length %}
+    <h2>Comments</h2>
+
+    <ul>
+    {% for comment in entity.comments %}
+        <li>{{ comment.body }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+<h2>Add comment</h2>
+
+<form action="{{ path('blog_comment_create', { 'id': entity.id }) }}" method="post" {{ form_enctype(comment_form) }}>
+    {{ form_widget(comment_form) }}
+    <p>
+        <button type="submit">Comment</button>
+    </p>
+</form>
+
 <ul class="record_actions">
     <li>
         <a href="{{ path('blog') }}">
