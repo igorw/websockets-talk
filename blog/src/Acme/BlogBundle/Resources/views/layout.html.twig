@@ -1,36 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>{% block title %}Acme Blog{% endblock %}</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}Acme Blog{% endblock %}</title>
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+        <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
 
-    <!-- Le styles -->
-    <link href="{{ asset('bundles/acmeblog/css/bootstrap.css') }}" rel="stylesheet">
-  </head>
+        <!-- Le styles -->
+        <link href="{{ asset('bundles/acmeblog/css/bootstrap.css') }}" rel="stylesheet">
+    </head>
 
-  <body>
+    <body>
 
-    <div class="container">
+        <div class="container">
 
-      <div class="content">
-        {% block content %}{% endblock %}
-      </div>
+            <div class="content">
+                {% block content %}{% endblock %}
+            </div>
 
-      <footer class="pull-right">
-        <p>&copy; Acme Corporation 2012</p>
-      </footer>
+            <footer class="pull-right">
+                <p>&copy; Acme Corporation 2012</p>
+            </footer>
 
-    </div> <!-- /container -->
+        </div> <!-- /container -->
 
-    {% block javascripts %}
-    {% endblock %}
+        {% block javascripts %}
+        {% endblock %}
 
-  </body>
+    </body>
 </html>
