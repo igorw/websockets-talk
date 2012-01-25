@@ -1,42 +1,91 @@
-var socket = io.connect('http://localhost:81'),
-    canvas = $('#le_canvas');
+var Paintbrush,
+    convertEvent,
+    socket = io.connect('http://localhost:81'),
+    canvas = $('#le_canvas')[0];
+
+Paintbrush = function (canvas) {
+    var that = this;
+
+    this.context = canvas.getContext('2d');
+
+    canvas.addEventListener('mousedown', function (event) {
+        that.mousedown(event);
+    });
+    canvas.addEventListener('mousemove', function (event) {
+        that.mousemove(event);
+    });
+    canvas.addEventListener('mouseup', function (event) {
+        that.mouseup(event);
+    });
+};
+
+Paintbrush.prototype = {
+    started: false,
+    context: null,
+    draw: function (offsetX, offsetY) {
+        this.context.lineTo(offsetX, offsetY);
+        this.context.stroke();
+    },
+    mousedown: function (event) {
+        this.context.beginPath();
+        this.context.moveTo(event.offsetX, event.offsetY);
+        this.started = true;
+    },
+    mousemove: function (event) {
+        if (this.started) {
+            this.draw(event.offsetX, event.offsetY);
+        }
+    },
+    mouseup: function (event) {
+        if (this.started) {
+            this.draw(event.offsetX, event.offsetY);
+            this.started = false;
+        }
+    }
+};
+
+convertEvent = function (event) {
+    return {offsetX: event.offsetX, offsetY: event.offsetY};
+};
 
 (function () {
-    var context = canvas[0].getContext('2d'),
-        started = false,
-        draw;
+    var brush;
 
-    draw = function (offsetX, offsetY) {
-        context.lineTo(offsetX, offsetY);
-        context.stroke();
-    };
+    brush = new Paintbrush(canvas);
 
-    canvas.mousedown(function (event) {
-        context.beginPath();
-        context.moveTo(event.offsetX, event.offsetY);
-        started = true;
+    // send all events through ws
+    canvas.addEventListener('mousedown', function (event) {
+        socket.emit('mousedown', convertEvent(event));
     });
-
-    canvas.mousemove(function (event) {
-        if (started) {
-            draw(event.offsetX, event.offsetY);
-        }
+    canvas.addEventListener('mousemove', function (event) {
+        socket.emit('mousemove', convertEvent(event));
     });
-
-    canvas.mouseup(function (event) {
-        if (started) {
-            draw(event.offsetX, event.offsetY);
-            started = false;
-        }
+    canvas.addEventListener('mouseup', function (event) {
+        socket.emit('mouseup', convertEvent(event));
     });
 })();
 
-// WIP
-socket.on('draw', function (data) {
-    var context = canvas[0].getContext('2d');
+(function () {
+    var brushes, getBrush;
 
-    context.beginPath();
-    context.moveTo(data.offsetX, data.offsetY);
-    context.lineTo(data.offsetX, data.offsetY);
-    context.stroke();
-});
+    brushes = {};
+
+    getBrush = function (event) {
+        brushes[event.source] = brushes[event.source] || new Paintbrush(canvas);
+
+        return brushes[event.source];
+    };
+
+    socket.on('mousedown', function (event) {
+        var brush = getBrush(event);
+        brush.mousedown(event);
+    });
+    socket.on('mousemove', function (event) {
+        var brush = getBrush(event);
+        brush.mousemove(event);
+    });
+    socket.on('mouseup', function (event) {
+        var brush = getBrush(event);
+        brush.mouseup(event);
+    });
+})();
