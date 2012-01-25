@@ -4,64 +4,81 @@ var Paintbrush,
     canvas = $('#le_canvas')[0];
 
 Paintbrush = function (canvas) {
-    var that = this;
-
     this.context = canvas.getContext('2d');
-
-    canvas.addEventListener('mousedown', function (event) {
-        that.mousedown(event);
-    });
-    canvas.addEventListener('mousemove', function (event) {
-        that.mousemove(event);
-    });
-    canvas.addEventListener('mouseup', function (event) {
-        that.mouseup(event);
-    });
 };
 
 Paintbrush.prototype = {
     started: false,
+    strokeStyle: '#000000',
     context: null,
+    socket: null,
     draw: function (offsetX, offsetY) {
         this.context.lineTo(offsetX, offsetY);
         this.context.stroke();
     },
     mousedown: function (event) {
+        event = convertEvent(event);
+
+        this.context.strokeStyle = this.strokeStyle;
         this.context.beginPath();
         this.context.moveTo(event.offsetX, event.offsetY);
         this.started = true;
+
+        this.socket && this.socket.emit('mousedown', event);
     },
     mousemove: function (event) {
+        event = convertEvent(event);
+
         if (this.started) {
             this.draw(event.offsetX, event.offsetY);
+
+            this.socket && this.socket.emit('mousemove', event);
         }
     },
     mouseup: function (event) {
+        event = convertEvent(event);
+
         if (this.started) {
             this.draw(event.offsetX, event.offsetY);
             this.started = false;
+
+            this.socket && this.socket.emit('mouseup', event);
         }
+    },
+    bind: function (canvas) {
+        var that = this;
+
+        $(canvas).on('mousedown', function (event) {
+            that.mousedown(event);
+        });
+        $(canvas).on('mousemove', function (event) {
+            that.mousemove(event);
+        });
+        $(canvas).on('mouseup', function (event) {
+            that.mouseup(event);
+        });
+    },
+    bindSocket: function (socket) {
+        this.socket = socket;
     }
 };
 
 convertEvent = function (event) {
-    return {offsetX: event.offsetX, offsetY: event.offsetY};
+    return {
+        offsetX: event.offsetX || (event.pageX - $(event.target).position().left),
+        offsetY: event.offsetY || (event.pageY - $(event.target).position().top)
+    };
 };
 
 (function () {
     var brush;
 
     brush = new Paintbrush(canvas);
+    brush.bind(canvas);
+    brush.bindSocket(socket);
 
-    // send all events through ws
-    canvas.addEventListener('mousedown', function (event) {
-        socket.emit('mousedown', convertEvent(event));
-    });
-    canvas.addEventListener('mousemove', function (event) {
-        socket.emit('mousemove', convertEvent(event));
-    });
-    canvas.addEventListener('mouseup', function (event) {
-        socket.emit('mouseup', convertEvent(event));
+    socket.on('color', function (color) {
+        brush.strokeStyle = color;
     });
 })();
 
@@ -78,6 +95,7 @@ convertEvent = function (event) {
 
     socket.on('mousedown', function (event) {
         var brush = getBrush(event);
+        brush.strokeStyle = event.color;
         brush.mousedown(event);
     });
     socket.on('mousemove', function (event) {
