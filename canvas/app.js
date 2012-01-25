@@ -1,4 +1,4 @@
-var io = require('socket.io').listen(81);
+var io = require('socket.io').listen(8080);
 
 io.sockets.on('connection', function (socket) {
     socket.on('mousedown', function (event) {

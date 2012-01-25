@@ -12,7 +12,7 @@ $('form.new_comment').submit(function (event) {
     });
 });
 
-var socket = io.connect('http://localhost:81');
+var socket = io.connect('http://localhost:8080');
 socket.on('comment.create', function (data) {
     var comment = $('<p></p>').text(data.body);
     comment.hide();
