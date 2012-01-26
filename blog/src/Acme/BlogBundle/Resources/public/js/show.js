@@ -28,7 +28,7 @@
             .removeAttr('selected');
     };
 
-    $('form.new_comment').submit(function (event) {
+    $('.comment-form form').submit(function (event) {
         event.preventDefault();
         event.stopPropagation();
 
@@ -54,4 +54,19 @@
         updateDates();
         setTimeout(updateDatesTimeout, 10000);
     }, 10000);
+
+    var formOffsetTop = $('.comment-form').position().top - 20;
+    $(window).scroll(function (event) {
+        var scrollTop = $(window).scrollTop();
+
+        if (scrollTop > formOffsetTop) {
+            $('.comment-form').css({
+                position: 'fixed',
+                left: $('.comment-form').position().left,
+                top: 20
+            });
+        } else {
+            $('.comment-form').css('position', 'static');
+        }
+    });
 })();

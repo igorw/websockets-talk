@@ -1,6 +1,6 @@
 <h3>Add Comment</h3>
 
-<form class="form-stacked new_comment" action="{{ path('blog_comment_create', { 'id': entity.id }) }}" method="post" {{ form_enctype(comment_form) }}>
+<form class="form-stacked" action="{{ path('blog_comment_create', { 'id': entity.id }) }}" method="post" {{ form_enctype(comment_form) }}>
     <div class="clearfix">
         {{ form_label(comment_form.name) }}
         <div class="input">
