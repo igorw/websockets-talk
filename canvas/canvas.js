@@ -73,12 +73,11 @@ convertEvent = function (event) {
 (function () {
     var brush;
 
-    brush = new Paintbrush(canvas);
-    brush.bind(canvas);
-    brush.bindSocket(socket);
-
     socket.on('color', function (color) {
+        brush = new Paintbrush(canvas);
         brush.strokeStyle = color;
+        brush.bind(canvas);
+        brush.bindSocket(socket);
     });
 })();
 
