@@ -1,0 +1,23 @@
+body {
+    font-family: sans-serif;
+}
+.messages {
+    border: 1px solid black;
+    height: 200px;
+    overflow: auto;
+}
+.messages > div {
+    padding: 10px;
+}
+.messages > div:nth-child(2n) {
+    background: lightblue;
+}
+input[type=text] {
+    width: 500px;
+}
+input[type=text], button {
+    font-size: 16px;
+    padding: 10px;
+    border: 1px solid black;
+    margin-left: 0;
+}
