@@ -3,13 +3,13 @@
 {% block content %}
     {% for entity in entities %}
         <div class="row">
-            <div class="offset5 span6">
+            <div class="span14">
                 <h2><a href="{{ path('blog_show', { 'id': entity.id }) }}">{{ entity.title }}</a></h2>
             </div>
         </div>
     {% else %}
         <div class="row">
-            <div class="offset5 span6">
+            <div class="span14">
                 <h2>Le Blog is empty.</h2>
             </div>
         </div>
@@ -18,7 +18,7 @@
     <hr />
 
     <div class="row">
-        <div class="offset5 span6">
+        <div class="span14">
             <ul class="unstyled pull-right">
                 <li>
                     <a href="{{ path('blog_new') }}" class="btn">Create a new entry</a>

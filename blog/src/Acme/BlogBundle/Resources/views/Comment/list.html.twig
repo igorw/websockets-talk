@@ -1,0 +1,7 @@
+<div class="comments">
+    {% for comment in comments %}
+        {% include "AcmeBlogBundle:Comment:row.html.twig" %}
+    {% else %}
+        &nbsp;
+    {% endfor %}
+</div>

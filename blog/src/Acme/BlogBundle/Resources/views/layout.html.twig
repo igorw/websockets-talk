@@ -12,7 +12,8 @@
         <![endif]-->
 
         <!-- Le styles -->
-        <link href="{{ asset('bundles/acmeblog/css/bootstrap.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/acmeblog/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/acmeblog/css/main.css') }}" rel="stylesheet">
     </head>
 
     <body>
@@ -20,8 +21,8 @@
         <div class="container">
 
             <div class="content">
-                <div class="page-header row">
-                    <div class="offset4">
+                <div class="page-header">
+                    <div>
                         <h1>Acme Blog <small>Supporting the derps of tomorrow</small></h1>
                     </div>
                 </div>
@@ -29,7 +30,7 @@
                 {% block content %}{% endblock %}
             </div>
 
-            <footer class="pull-right">
+            <footer>
                 <p>&copy; Acme Corporation 2012</p>
             </footer>
 

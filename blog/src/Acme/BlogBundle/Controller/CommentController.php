@@ -43,8 +43,9 @@ class CommentController extends Controller
 
             $this->publishCommentCreate($comment);
 
-            return new Response('{}', 201, array('Content-Type' => 'application/json'));
-            
+            $renderedRow = $this->renderView('AcmeBlogBundle:Comment:row.html.twig', array('comment' => $comment));
+            return new Response($renderedRow, 201);
+
         }
 
         return new Response('{}', 400, array('Content-Type' => 'application/json'));
@@ -57,7 +58,12 @@ class CommentController extends Controller
         $sock = $context->getSocket(\ZMQ::SOCKET_PUB);
         $sock->connect('tcp://127.0.0.1:5555');
 
-        $msg = json_encode(array('type' => 'comment.create', 'data' => $comment->toArray()));
+        $renderedRow = $this->renderView('AcmeBlogBundle:Comment:row.html.twig', array('comment' => $comment));
+
+        $msg = json_encode(array(
+            'type' => 'post.'.$comment->getPost()->getId().'.comment.create',
+            'data' => $renderedRow,
+        ));
         $sock->send($msg);
     }
 }

@@ -51,7 +51,7 @@ class Post
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -71,7 +71,7 @@ class Post
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -91,7 +91,7 @@ class Post
     /**
      * Get body
      *
-     * @return text 
+     * @return text
      */
     public function getBody()
     {

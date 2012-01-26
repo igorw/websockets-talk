@@ -10,7 +10,9 @@ class CommentType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-            ->add('body')
+            ->add('name')
+            ->add('email', 'email')
+            ->add('body', 'textarea')
         ;
     }
 
