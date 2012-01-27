@@ -23,14 +23,14 @@ class CommentController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $entity = $em->getRepository('AcmeBlogBundle:Post')->find($id);
+        $post = $em->getRepository('AcmeBlogBundle:Post')->find($id);
 
-        if (!$entity) {
+        if (!$post) {
             throw $this->createNotFoundException('Unable to find Post entity.');
         }
 
         $comment = new Comment();
-        $comment->setPost($entity);
+        $comment->setPost($post);
 
         $request = $this->getRequest();
         $form    = $this->createForm(new CommentType(), $comment);
@@ -60,8 +60,9 @@ class CommentController extends Controller
 
         $renderedRow = $this->renderView('AcmeBlogBundle:Comment:row.html.twig', array('comment' => $comment));
 
+        $postId = $comment->getPost()->getId();
         $msg = json_encode(array(
-            'type' => 'post.'.$comment->getPost()->getId().'.comment.create',
+            'type' => "post.$postId.comment.create",
             'data' => $renderedRow,
         ));
         $sock->send($msg);

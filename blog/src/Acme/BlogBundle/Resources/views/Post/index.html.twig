@@ -1,10 +1,10 @@
 {% extends "AcmeBlogBundle::layout.html.twig" %}
 
 {% block content %}
-    {% for entity in entities %}
+    {% for post in posts %}
         <div class="row">
             <div class="span14">
-                <h2><a href="{{ path('blog_show', { 'id': entity.id }) }}">{{ entity.title }}</a></h2>
+                <h2><a href="{{ path('blog_show', { 'id': post.id }) }}">{{ post.title }}</a></h2>
             </div>
         </div>
     {% else %}

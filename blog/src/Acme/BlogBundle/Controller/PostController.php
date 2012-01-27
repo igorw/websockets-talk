@@ -27,9 +27,9 @@ class PostController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $entities = $em->getRepository('AcmeBlogBundle:Post')->findAll();
+        $posts = $em->getRepository('AcmeBlogBundle:Post')->findAll();
 
-        return array('entities' => $entities);
+        return array('posts' => $posts);
     }
 
     /**
@@ -42,9 +42,9 @@ class PostController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $entity = $em->getRepository('AcmeBlogBundle:Post')->find($id);
+        $post = $em->getRepository('AcmeBlogBundle:Post')->find($id);
 
-        if (!$entity) {
+        if (!$post) {
             throw $this->createNotFoundException('Unable to find Post entity.');
         }
 
@@ -53,7 +53,7 @@ class PostController extends Controller
         $commentForm = $this->createForm(new CommentType());
 
         return array(
-            'entity'      => $entity,
+            'post'        => $post,
             'delete_form' => $deleteForm->createView(),
             'comment_form' => $commentForm->createView(),
         );
@@ -67,11 +67,11 @@ class PostController extends Controller
      */
     public function newAction()
     {
-        $entity = new Post();
-        $form   = $this->createForm(new PostType(), $entity);
+        $post = new Post();
+        $form   = $this->createForm(new PostType(), $post);
 
         return array(
-            'entity' => $entity,
+            'post'   => $post,
             'form'   => $form->createView()
         );
     }
@@ -85,22 +85,22 @@ class PostController extends Controller
      */
     public function createAction()
     {
-        $entity  = new Post();
+        $post  = new Post();
         $request = $this->getRequest();
-        $form    = $this->createForm(new PostType(), $entity);
+        $form    = $this->createForm(new PostType(), $post);
         $form->bindRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getEntityManager();
-            $em->persist($entity);
+            $em->persist($post);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('blog_show', array('id' => $entity->getId())));
-            
+            return $this->redirect($this->generateUrl('blog_show', array('id' => $post->getId())));
+
         }
 
         return array(
-            'entity' => $entity,
+            'post'   => $post,
             'form'   => $form->createView()
         );
     }
@@ -115,17 +115,17 @@ class PostController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $entity = $em->getRepository('AcmeBlogBundle:Post')->find($id);
+        $post = $em->getRepository('AcmeBlogBundle:Post')->find($id);
 
-        if (!$entity) {
+        if (!$post) {
             throw $this->createNotFoundException('Unable to find Post entity.');
         }
 
-        $editForm = $this->createForm(new PostType(), $entity);
+        $editForm = $this->createForm(new PostType(), $post);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'post'        => $post,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -142,13 +142,13 @@ class PostController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $entity = $em->getRepository('AcmeBlogBundle:Post')->find($id);
+        $post = $em->getRepository('AcmeBlogBundle:Post')->find($id);
 
-        if (!$entity) {
+        if (!$post) {
             throw $this->createNotFoundException('Unable to find Post entity.');
         }
 
-        $editForm   = $this->createForm(new PostType(), $entity);
+        $editForm   = $this->createForm(new PostType(), $post);
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();
@@ -156,14 +156,14 @@ class PostController extends Controller
         $editForm->bindRequest($request);
 
         if ($editForm->isValid()) {
-            $em->persist($entity);
+            $em->persist($post);
             $em->flush();
 
             return $this->redirect($this->generateUrl('blog_show', array('id' => $id)));
         }
 
         return array(
-            'entity'      => $entity,
+            'post'        => $post,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -184,13 +184,13 @@ class PostController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getEntityManager();
-            $entity = $em->getRepository('AcmeBlogBundle:Post')->find($id);
+            $post = $em->getRepository('AcmeBlogBundle:Post')->find($id);
 
-            if (!$entity) {
+            if (!$post) {
                 throw $this->createNotFoundException('Unable to find Post entity.');
             }
 
-            $em->remove($entity);
+            $em->remove($post);
             $em->flush();
         }
 

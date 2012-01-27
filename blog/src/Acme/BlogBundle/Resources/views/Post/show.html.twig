@@ -9,16 +9,16 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row" data-post-id="{{ entity.id }}">
+    <div class="row" data-post-id="{{ post.id }}">
         <div class="span14">
-            <form action="{{ path('blog_delete', { 'id': entity.id }) }}" method="post" class="pull-right" style="display: inline-block; margin-left: 10px;">
+            <form action="{{ path('blog_delete', { 'id': post.id }) }}" method="post" class="pull-right" style="display: inline-block; margin-left: 10px;">
                 {{ form_widget(delete_form) }}
                 <input type="submit" value="Delete" class="btn danger" />
             </form>
-            <a href="{{ path('blog_edit', { 'id': entity.id }) }}" class="btn pull-right">Edit</a>
+            <a href="{{ path('blog_edit', { 'id': post.id }) }}" class="btn pull-right">Edit</a>
 
-            <h1>{{ entity.title }}</h1>
-            <p>{{ entity.body }}</p>
+            <h1>{{ post.title }}</h1>
+            <p>{{ post.body }}</p>
         </div>
     </div>
 
@@ -26,7 +26,7 @@
 
     <div class="row">
         <div class="span8 comment-list">
-            {% include "AcmeBlogBundle:Comment:list.html.twig" with {comments: entity.comments} %}
+            {% include "AcmeBlogBundle:Comment:list.html.twig" with {comments: post.comments} %}
         </div>
         <div class="span6 comment-form">
             {% include "AcmeBlogBundle:Comment:form.html.twig" %}
