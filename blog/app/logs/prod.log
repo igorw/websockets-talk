@@ -1,1 +1,0 @@
-[2012-01-22 15:40:55] request.ERROR: Symfony\Component\HttpKernel\Exception\NotFoundHttpException: No route found for "GET /" (uncaught exception) at /Users/igor/code/websockets-talk/blog/vendor/symfony/src/Symfony/Bundle/FrameworkBundle/EventListener/RouterListener.php line 83 [] []
