@@ -30,7 +30,6 @@
 
     $('.comment-form form').submit(function (event) {
         event.preventDefault();
-        event.stopPropagation();
 
         var form = $(this),
             action = form.attr('action'),

@@ -45,7 +45,6 @@ class CommentController extends Controller
 
             $renderedRow = $this->renderView('AcmeBlogBundle:Comment:row.html.twig', array('comment' => $comment));
             return new Response($renderedRow, 201);
-
         }
 
         return new Response('{}', 400, array('Content-Type' => 'application/json'));
