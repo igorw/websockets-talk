@@ -27,7 +27,7 @@ class PostController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $posts = $em->getRepository('AcmeBlogBundle:Post')->findAll();
+        $posts = $em->getRepository('AcmeBlogBundle:Post')->findBy(array(), array('createdAt' => 'desc'));
 
         return array('posts' => $posts);
     }

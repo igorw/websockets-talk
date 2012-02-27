@@ -43,9 +43,15 @@ class Post
      */
     private $comments;
 
+    /**
+     * @ORM\Column(name="createdAt", type="datetime")
+     */
+    private $createdAt;
+
     public function __construct()
     {
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
     /**
@@ -106,5 +112,15 @@ class Post
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return datetime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
     }
 }
