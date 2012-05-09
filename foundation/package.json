@@ -2,7 +2,8 @@
     "name": "foundation",
     "version": "0.0.1",
     "dependencies": {
-        "socket.io": "latest",
+        "connect": "latest",
+        "sockjs": "latest",
         "zmq": "latest"
     }
 }

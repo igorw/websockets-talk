@@ -1,9 +1,16 @@
 <?php
 
+if (!isset($argv[1])) {
+    echo "Usage: php trigger.php message\n";
+    exit;
+}
+
 $context = new ZMQContext();
 
-$sock = $context->getSocket(ZMQ::SOCKET_PUB);
-$sock->connect('tcp://127.0.0.1:5555');
+$pub = $context->getSocket(ZMQ::SOCKET_PUB);
+$pub->connect('tcp://127.0.0.1:5555');
 
-$msg = json_encode(array('type' => 'debug', 'data' => array('foo', 'bar', 'baz')));
-$sock->send($msg);
+// msg could be: {'type' => 'debug', 'data' => ['foo', 'bar', 'baz']}
+
+$msg = trim($argv[1]);
+$pub->send($msg);
