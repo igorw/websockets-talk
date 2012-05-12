@@ -1,7 +1,7 @@
 <?php
 
 if (!isset($argv[1])) {
-    echo "Usage: php trigger.php message\n";
+    echo "Usage: php publish.php message\n";
     exit;
 }
 
