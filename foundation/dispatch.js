@@ -1,16 +1,17 @@
 var sockjs = require('sockjs'),
     connect = require('connect'),
     zmq = require('zmq'),
-    server,
-    clients = [],
-    broadcast,
-    sub;
+    clients = [];
 
-server = connect()
+var server = connect()
     .use(connect.static(__dirname + '/public'))
     .listen(8080);
 
-broadcast = sockjs.createServer();
+var broadcast = sockjs.createServer({
+    prefix: '/broadcast',
+    http_server: server,
+    sockjs_url: 'http://localhost:8080/sockjs-0.3.js'
+});
 broadcast.on('connection', function (conn) {
     clients.push(conn);
 
@@ -21,12 +22,8 @@ broadcast.on('connection', function (conn) {
         }
     });
 });
-broadcast.installHandlers(server, {
-    prefix: '/broadcast',
-    sockjs_url: 'http://localhost:8080/sockjs-0.3.js'
-});
 
-sub = zmq.socket('sub');
+var sub = zmq.socket('sub');
 sub.subscribe('');
 sub.bind('tcp://*:5555');
 
