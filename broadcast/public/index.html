@@ -7,22 +7,7 @@
 <body>
 
 <script src="/sockjs-0.3.js"></script>
-<script>
-    var sock = new SockJS('http://localhost:8080/broadcast');
-    sock.onmessage = function (event) {
-        var parts, type, data;
-
-        parts = event.data.split(/(\w+) ?(.*)/, 3);
-        type = parts[1];
-        data = JSON.parse(parts[2]);
-
-        switch (type) {
-            case 'debug':
-                console.log(data);
-                break;
-        }
-    };
-</script>
+<script src="/client.js"></script>
 
 </body>
 </html>
