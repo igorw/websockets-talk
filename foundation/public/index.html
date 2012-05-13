@@ -10,10 +10,16 @@
 <script>
     var sock = new SockJS('http://localhost:8080/broadcast');
     sock.onmessage = function (event) {
-        var message = JSON.parse(event.data);
+        var parts, type, data;
 
-        if ('debug' === message.type) {
-            console.log(message.data);
+        parts = event.data.split(/(\w+) ?(.*)/, 3);
+        type = parts[1];
+        data = JSON.parse(parts[2]);
+
+        switch (type) {
+            case 'debug':
+                console.log(data);
+                break;
         }
     };
 </script>

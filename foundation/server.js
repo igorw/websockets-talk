@@ -9,8 +9,7 @@ var server = connect()
 
 var broadcast = sockjs.createServer({
     prefix: '/broadcast',
-    http_server: server,
-    sockjs_url: 'http://localhost:8080/sockjs-0.3.js'
+    sockjs_url: '/sockjs-0.3.js'
 });
 broadcast.on('connection', function (conn) {
     clients.push(conn);
@@ -22,6 +21,7 @@ broadcast.on('connection', function (conn) {
         }
     });
 });
+broadcast.installHandlers(server);
 
 var sub = zmq.socket('sub');
 sub.subscribe('');
