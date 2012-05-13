@@ -25,6 +25,27 @@ buster.testCase('broadcast sockjs server', {
         }, this);
         assert.equals(this.broadcast.clients, conns);
     },
-    'tearDown': function () {
-    },
+    'should send messages to all connections': function () {
+        var createConnectionMock = function () {
+            var conn = new events.EventEmitter();
+            conn.write = sinon.spy();
+            return conn;
+        };
+
+        var conns = [
+            createConnectionMock(),
+            createConnectionMock(),
+            createConnectionMock()
+        ];
+
+        conns.forEach(function (conn) {
+            this.broadcast.emit('connection', conn);
+        }, this);
+
+        this.broadcast.send('foobar');
+
+        conns.forEach(function (conn) {
+            assert.calledWith(conn.write, 'foobar');
+        });
+    }
 });
