@@ -1,5 +1,7 @@
-app/cache
-app/config/parameters.ini
-app/logs
+web/bundles/
+app/bootstrap.php.cache
+app/cache/*
+app/logs/*
+build/
 vendor
-web/bundles
+composer.phar
