@@ -12,3 +12,7 @@
 
     pear channel-discover pear.zero.mq
     pecl install zero.mq/zmq-beta
+
+# tests
+
+    buster test
