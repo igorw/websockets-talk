@@ -1,9 +1,13 @@
 {
-    "name": "foundation",
+    "name": "broadcast",
     "version": "0.0.1",
     "dependencies": {
         "connect": "latest",
         "sockjs": "latest",
         "zmq": "latest"
+    },
+    "devDependencies": {
+        "buster": "latest",
+        "sinon": "latest"
     }
 }

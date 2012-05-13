@@ -5,6 +5,8 @@ sock.onmessage = function (event) {
     // message format: type [data]
     // type: \w+
     // data: JSON
+    //
+    // example: debug "foobar"
 
     parts = event.data.match(/(\w+)( (.+)|$)/);
     if (!parts) {
