@@ -10,7 +10,5 @@ $context = new ZMQContext();
 $pub = $context->getSocket(ZMQ::SOCKET_PUB);
 $pub->connect('tcp://127.0.0.1:5555');
 
-// msg could be: debug ["foo", "bar", "baz"]
-
 $msg = trim($argv[1]);
 $pub->send($msg);
