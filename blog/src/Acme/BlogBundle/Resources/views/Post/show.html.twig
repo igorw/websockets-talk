@@ -3,7 +3,7 @@
 {% block javascripts %}
     {# <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> #}
     <script src="{{ asset('bundles/acmeblog/js/jquery-1.7.min.js') }}"></script>
-    <script src="http://localhost:8080/socket.io/socket.io.js"></script>
+    <script src="{{ asset('bundles/acmeblog/js/sockjs-0.3.min.js') }}"></script>
     <script src="{{ asset('bundles/acmeblog/js/moment.min.js') }}"></script>
     <script src="{{ asset('bundles/acmeblog/js/show.js') }}"></script>
 {% endblock %}

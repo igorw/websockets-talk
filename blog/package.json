@@ -1,0 +1,8 @@
+{
+    "name": "blog",
+    "version": "0.0.1",
+    "dependencies": {
+        "sockjs": "latest",
+        "zmq": "latest"
+    }
+}

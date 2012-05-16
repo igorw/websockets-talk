@@ -61,7 +61,8 @@ class CommentController extends Controller
 
         $postId = $comment->getPost()->getId();
         $msg = json_encode(array(
-            'type' => "post.$postId.comment.create",
+            'type' => 'publish',
+            'entity' => "$postId",
             'data' => $renderedRow,
         ));
         $sock->send($msg);
