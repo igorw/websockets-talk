@@ -1,6 +1,6 @@
 var Paintbrush,
     convertEvent,
-    socket = io.connect('http://localhost:8080'),
+    socket = io.connect(),
     canvas = $('#le_canvas')[0];
 
 Paintbrush = function (canvas) {
