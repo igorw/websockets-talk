@@ -1,4 +1,11 @@
-var io = require('socket.io').listen(8080);
+var connect = require('connect'),
+    sio = require('socket.io');
+
+var server = connect()
+    .use(connect.static(__dirname + '/public'))
+    .listen(8080);
+
+var io = sio.listen(server);
 
 io.sockets.on('connection', function (socket) {
     var color = '#'+Math.floor(Math.random()*16777215).toString(16);
