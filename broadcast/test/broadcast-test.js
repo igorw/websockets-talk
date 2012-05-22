@@ -49,15 +49,9 @@ buster.testCase('broadcast sockjs server', {
         });
     },
     'should remove connections on disconnect': function () {
-        var createConnectionMock = function () {
-            var conn = new events.EventEmitter();
-            conn.write = sinon.spy();
-            return conn;
-        };
-
         var conns = [
-            createConnectionMock(),
-            createConnectionMock()
+            new events.EventEmitter(),
+            new events.EventEmitter()
         ];
 
         conns.forEach(function (conn) {
