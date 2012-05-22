@@ -47,5 +47,25 @@ buster.testCase('broadcast sockjs server', {
         conns.forEach(function (conn) {
             assert.calledWith(conn.write, 'foobar');
         });
+    },
+    'should remove connections on disconnect': function () {
+        var createConnectionMock = function () {
+            var conn = new events.EventEmitter();
+            conn.write = sinon.spy();
+            return conn;
+        };
+
+        var conns = [
+            createConnectionMock(),
+            createConnectionMock()
+        ];
+
+        conns.forEach(function (conn) {
+            this.broadcast.emit('connection', conn);
+        }, this);
+
+        conns[0].emit('close');
+
+        assert.equals(this.broadcast.clients, [conns[1]]);
     }
 });

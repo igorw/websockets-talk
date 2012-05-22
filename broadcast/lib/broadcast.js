@@ -8,7 +8,7 @@ module.exports = function () {
 
         conn.on('close', function () {
             var index = broadcast.clients.indexOf(conn);
-            if (-1 === index) {
+            if (-1 !== index) {
                 broadcast.clients.splice(index, 1);
             }
         });
