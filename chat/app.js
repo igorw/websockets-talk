@@ -1,22 +1,30 @@
-var io = require('socket.io').listen(8080),
+var broadcast = require('../broadcast/lib/broadcast')(),
+    connect = require('connect'),
     bufferLimit = 15,
     messages;
 
 messages = [];
 
-io.sockets.on('connection', function (socket) {
+var server = connect()
+    .use(connect.static(__dirname + '/public'))
+    .listen(8080);
 
+broadcast.installHandlers(server, {
+    prefix: '/broadcast',
+    sockjs_url: '/sockjs-0.3.js'
+});
+
+broadcast.on('connection', function (conn) {
     messages.forEach(function (message) {
-        socket.emit('message', message);
+        conn.write(message);
     });
 
-    socket.on('message', function (message) {
-        io.sockets.emit('message', message);
+    conn.on('data', function (message) {
+        broadcast.send(message);
         messages.push(message);
 
         if (messages.length > bufferLimit) {
             messages = messages.splice(-bufferLimit, bufferLimit);
         }
     });
-
 });
