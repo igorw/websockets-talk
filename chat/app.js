@@ -10,7 +10,7 @@ var server = connect()
     .listen(8080);
 
 broadcast.installHandlers(server, {
-    prefix: '/broadcast',
+    prefix: '/chat',
     sockjs_url: '/sockjs-0.3.js'
 });
 

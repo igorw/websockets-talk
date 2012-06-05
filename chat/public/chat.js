@@ -1,7 +1,7 @@
 (function () {
     "use strict";
 
-    var sock = new SockJS('http://localhost:8080/broadcast'),
+    var sock = new SockJS('http://localhost:8080/chat'),
         messages = $('.messages'),
         form = $('form'),
         name;
