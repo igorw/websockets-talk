@@ -1,0 +1,3 @@
+IgorwRealtimeLoggingBundle_logs:
+    pattern:  /logs
+    defaults: { _controller: IgorwRealtimeLoggingBundle:Logs:index }

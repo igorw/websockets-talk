@@ -1,0 +1,11 @@
+<pre class="logs-container">
+</pre>
+
+<script src="http://localhost:8080/sockjs-0.3.js"></script>
+<script>
+var sock = new SockJS('http://localhost:8080/broadcast');
+sock.onmessage = function (event) {
+    var elements = document.getElementsByClassName('logs-container');
+    elements[0].innerText += event.data;
+};
+</script>

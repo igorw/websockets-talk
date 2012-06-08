@@ -1,0 +1,7 @@
+parameters:
+    igorw_realtime_logging.handler.class: Igorw\RealtimeLoggingBundle\Monolog\ZeromqHandler
+
+services:
+    igorw_realtime_logging.handler:
+        class: %igorw_realtime_logging.handler.class%
+        arguments: [%igorw_realtime_logging.handler.host%]
